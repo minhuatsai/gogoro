@@ -50,15 +50,16 @@ export default {
   top: 0;
   width: 100%;
   transition: all 0.5s;
+  display: flex;
+  justify-content: center;
 
   &:hover {
     background-color: #000;
   }
   .header-container-inner {
     display: flex;
-    max-width: 1140px;
-    margin: 0 auto;
     align-items: center;
+    width: 85%;
 
     > ul {
       list-style-type: none;
