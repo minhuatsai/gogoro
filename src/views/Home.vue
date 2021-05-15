@@ -49,15 +49,17 @@ export default {
             <div
               class="carousel-list carousel-list-second"
             >
-              <video class="gs-video" muted="" playsinline="" autoplay="" loop="" onplay="this.style.opacity = 1;" style="opacity: 1;">
-                <source src="//cdn.gogoro.com/resources/pages/landing-page/gs0528/home_vision_1080_v02.mp4" type="video/mp4">
-              </video>
-              <span class="gs-content-layer">
-                <span class="gs-content">
-                  <h1 class="gs-title">A Better Way Forward to <span class="d-inline-block">Smarter, Cleaner Cities</span></h1>
-                  <span class="gs-desc">Gogoro is reinventing urban transportation with an ecosystem of sustainable energy solutions for the world’s modern cities.</span>
+              <a href="https://www.gogoro.com/about/">
+                <video class="gs-video" muted="" playsinline="" autoplay="" loop="" onplay="this.style.opacity = 1;" style="opacity: 1;">
+                  <source src="//cdn.gogoro.com/resources/pages/landing-page/gs0528/home_vision_1080_v02.mp4" type="video/mp4">
+                </video>
+                <span class="gs-content-layer">
+                  <span class="gs-content">
+                    <h1 class="gs-title">A Better Way Forward to <span class="d-inline-block">Smarter, Cleaner Cities</span></h1>
+                    <span class="gs-desc">Gogoro is reinventing urban transportation with an ecosystem of sustainable energy solutions for the world’s modern cities.</span>
+                  </span>
                 </span>
-              </span>
+              </a>
             </div>
           `,
         },
