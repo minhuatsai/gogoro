@@ -94,6 +94,8 @@ export default {
           text: "",
           isHTML: true,
           html: "Powered by <br />Gogoro Network",
+          href: "https://network.gogoro.com/tw/en/scooter/",
+          target: "_self",
           style: {
             height: "340px",
             backgroundImage:
@@ -105,6 +107,9 @@ export default {
           text: "",
           isHTML: true,
           html: "Hero & Gogoro <br />heads to India",
+          href:
+            "https://www.gogoro.com/news/Gogoro-Battery-Swapping-India-Hero/",
+          target: "_self",
           style: {
             height: "340px",
             backgroundImage:

@@ -1,5 +1,5 @@
 <template lang="pug">
-.simple-introduction-container(:style="style")
+a.simple-introduction-container(:style="style" :href="introductionData.href || 'javascript:void(0)'" :target="introductionData.target")
     .simple-introduction-article
         h5(v-html="introductionData.title")
         template(v-if="introductionData.isHTML")
