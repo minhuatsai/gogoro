@@ -1,6 +1,6 @@
 <template lang="pug">
 .vertical-card-container
-    a(href='http://www.gogoro.com/gogoro-network/' :target='verticalCardList.title' :style='style')
+    a(href='http://www.gogoro.com/gogoro-network/' :target='verticalCardList.target' :style='style')
         .vertical-card-header
             h2.campaign-title {{verticalCardList.title}}
             p {{verticalCardList.description}}
