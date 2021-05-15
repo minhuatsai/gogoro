@@ -2,15 +2,32 @@
 Header
 .home-container
   Carousel(v-bind:carouselList='carouselList')
+  .home-container-body
+    .campaign-list
+      VerticalCard(v-for="(listItem,listIndex) in campaignList" :key="'carousel-'+listIndex" :verticalCardList="listItem")
+    .landing-page-section
+      .landing-page-article
+        .landing-page-article-slogan
+          p(class="font-weight-bold") Gogoro Network
+        .landing-page-article-header
+          h1 The largest battery swapping network in the world
+        .landing-page-article-body
+          p Gogoro Network® manages over <string><b>200,000 battery swaps a day</b></string> at 2,100 GoStation® across Taiwan, that's enough power to ride 15,000,000 km.
+        .landing-page-article-footer
+          a(class="font-weight-bold" href="https://network.gogoro.com/tw/en/coverage/") SEE OUR NETWORK <img src="https://cdn.gogoro.com/resources/pages/landing-page/gs0528/icon-aarow.svg?v=2" />
+    .media-section
+      SimpleIntroduction(v-for="(listItem,listIndex) in introductionList" :key="'simple-introduction-'+listIndex" :introductionData="listItem")
 </template>
 
 <script>
 import Header from "../component/header";
 import Carousel from "../component/carousel";
+import VerticalCard from "../component/vertical-card";
+import SimpleIntroduction from "../component/simple-introduction";
 
 export default {
   name: "Home",
-  components: { Header, Carousel },
+  components: { Header, Carousel, VerticalCard, SimpleIntroduction },
   data() {
     return {
       carouselList: [
@@ -43,6 +60,56 @@ export default {
               </span>
             </div>
           `,
+        },
+      ],
+      campaignList: [
+        {
+          target: "_self",
+          href: "http://www.gogoro.com/gogoro-network/",
+          bgImgSrc:
+            "https://www.gogoro.com/uploads/landing_pages/2-campaign1-background-e3b88377e474f0386c7bfbc9f442227c73d79865.png?1590659699",
+          title: "Smarter Energy",
+          description: "Battery swapping is cleaner, faster & easier",
+        },
+        {
+          target: "_self",
+          href: "http://www.gogoro.com/gogoro-network/",
+          bgImgSrc:
+            "https://www.gogoro.com/uploads/landing_pages/2-campaign2-background-a4b8ef537d3b88a684eee733d9886a9634c9564a.png?1590570315",
+          title: "Smarter Rides",
+          description: "Experience a ride like no other",
+        },
+        {
+          target: "_self",
+          href: "http://www.gogoro.com/gogoro-network/",
+          bgImgSrc:
+            "https://www.gogoro.com/uploads/landing_pages/2-campaign3-background-e608d89f7f5e1dd4ca01da871c9f2d18fa4ceb3b.png?1590570315",
+          title: "Smarter Sharing",
+          description: "Ride when you like, swap as you go",
+        },
+      ],
+      introductionList: [
+        {
+          title: "5 Partners and Growing",
+          text: "",
+          isHTML: true,
+          html: "Powered by <br />Gogoro Network",
+          style: {
+            height: "340px",
+            backgroundImage:
+              "url('https://www.gogoro.com/uploads/landing_pages/2-blog-post1-background-cd09a35997763fe78b226f247857bef12f02d0a6.png?1590570315')",
+          },
+        },
+        {
+          title: "Blog",
+          text: "",
+          isHTML: true,
+          html: "Hero & Gogoro <br />heads to India",
+          style: {
+            height: "340px",
+            backgroundImage:
+              "url('https://www.gogoro.com/uploads/landing_pages/2-social-post-background-56588be5a509ae7d8125699fa4a6a5757930e33a.jpg?1619595003')",
+          },
         },
       ],
     };
@@ -125,6 +192,80 @@ export default {
       font-size: 20px;
       line-height: 1.2;
       max-width: 500px;
+    }
+  }
+}
+.home-container-body {
+  width: 100%;
+  margin: 10px auto;
+  max-width: 1280px;
+
+  .campaign-list {
+    display: flex;
+    justify-content: space-between;
+
+    .vertical-card-container {
+      width: calc(100% / 3 - 8px);
+    }
+  }
+  .landing-page-section {
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(60deg, #40fdcb, #40fdcb 7%, #24ee2c);
+    position: relative;
+    height: 650px;
+    margin-top: 10px;
+
+    &:before {
+      content: "";
+      display: block;
+      width: 100%;
+      background-image: url("https://cdn.gogoro.com/resources/images/landing-page/station-gn@2x.png?v2");
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      background-size: contain;
+      background-position: 90% 0;
+      background-repeat: no-repeat;
+    }
+
+    .landing-page-article {
+      max-width: 378px;
+      text-align: left;
+      position: relative;
+      z-index: 1;
+      left: 100px;
+
+      .landing-page-article-slogan {
+        opacity: 0.7;
+        margin: 0 0 46px 0;
+      }
+      .landing-page-article-header {
+        color: #000;
+        margin: 0 0 20px 0;
+      }
+      .landing-page-article-body {
+        margin: 0 0 32px 0;
+      }
+      .landing-page-article-footer {
+        > a {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+  .media-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    .simple-introduction-container {
+      width: calc(100% / 2 - 5px);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
   }
 }

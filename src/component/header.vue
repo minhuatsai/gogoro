@@ -65,7 +65,7 @@ export default {
     > ul {
       list-style-type: none;
       display: flex;
-      margin: 0;
+      margin: 0 0 0 30px;
 
       li {
         cursor: pointer;
