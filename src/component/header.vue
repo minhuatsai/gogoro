@@ -52,9 +52,10 @@ export default {
   transition: all 0.5s;
   display: flex;
   justify-content: center;
+  z-index: 444444;
 
   &:hover {
-    background-color: #000;
+    background-color: #323237;
   }
   .header-container-inner {
     display: flex;
