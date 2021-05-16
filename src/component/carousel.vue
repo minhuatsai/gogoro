@@ -10,32 +10,43 @@ export default {
   name: "carousel",
   props: ["carouselData"],
   mounted() {
-    this.stopCarousel = setInterval(() => {
-      this.activeIndex++;
-      if (this.activeIndex === this.$props.carouselData.list.length) {
-        this.activeIndex = 0;
-      }
-      this.$props.carouselData.list.forEach((listItem, listIndex) => {
-        listItem.active = this.activeIndex === listIndex ? true : false;
-      });
-    }, this.duration);
+    this.carouselStart();
   },
   data() {
     return {
       activeIndex: 0,
-      duration: 3000,
+      duration: this.$props.carouselData.duration || 3000,
       stopCarousel: null,
+      autoPlay: this.$props.carouselData.autoPlay,
+      changeStopAutoPlay: this.$props.carouselData.changeStopAutoPlay,
       listRefs: [],
     };
   },
   methods: {
+    carouselStart() {
+      this.stopCarousel = setInterval(() => {
+        this.activeIndex++;
+        if (this.activeIndex === this.$props.carouselData.list.length) {
+          this.activeIndex = 0;
+        }
+        this.$props.carouselData.list.forEach((listItem, listIndex) => {
+          listItem.active = this.activeIndex === listIndex ? true : false;
+        });
+      }, this.duration);
+    },
+    carouselStop() {
+      clearInterval(this.stopCarousel);
+    },
     carouselChange(activeIndex) {
       this.activeIndex = activeIndex;
+      this.carouselStop();
+      this.carouselStart();
       this.$props.carouselData.list.forEach((listItem, listIndex) => {
         listItem.active = activeIndex === listIndex ? true : false;
       });
-      clearInterval(this.stopCarousel);
-
+      if (this.changeStopAutoPlay) {
+        this.carouselStop();
+      }
       this.$emit("carousel-change", activeIndex);
     },
   },

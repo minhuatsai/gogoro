@@ -53,6 +53,7 @@ export default {
     return {
       carouselData: {
         className: "main-carousel",
+        changeStopAutoPlay: true,
         list: [
           {
             active: true,
