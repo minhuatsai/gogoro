@@ -46,6 +46,9 @@ import SimpleIntroduction from "../component/simple-introduction";
 export default {
   name: "Home",
   components: { Header, Carousel, VerticalCard, SimpleIntroduction },
+  mounted() {
+    this.quotesTabsCarouselStart();
+  },
   data() {
     return {
       carouselData: {
@@ -143,6 +146,8 @@ export default {
       quotesData: {
         animation: "animation-fadein",
         activeIndex: 0,
+        duration: 5000,
+        stopCarousel: null,
         list: [
           {
             quote: "You have to see it to really appreciate how cool it is,",
@@ -266,11 +271,28 @@ export default {
   },
   methods: {
     quotesTabsChange(activeIndex) {
+      this.quotesTabsCarouselStop();
+      this.quotesTabsCarouselStart();
       this.quotesData.animation = "animation-fadeout";
       setTimeout(() => {
         this.quotesData.activeIndex = activeIndex;
         this.quotesData.animation = "animation-fadein";
       }, 500);
+    },
+    quotesTabsCarouselStart() {
+      this.quotesData.stopCarousel = setInterval(() => {
+        this.quotesData.activeIndex++;
+        if (this.quotesData.activeIndex === this.quotesData.list.length) {
+          this.quotesData.activeIndex = 0;
+        }
+        this.quotesData.list.forEach((listItem, listIndex) => {
+          listItem.active =
+            this.quotesData.activeIndex === listIndex ? true : false;
+        });
+      }, this.quotesData.duration);
+    },
+    quotesTabsCarouselStop() {
+      clearInterval(this.quotesData.stopCarousel);
     },
     impactCarouselChange(activeIndex) {
       this.impactData.animation = "animation-slideout";
