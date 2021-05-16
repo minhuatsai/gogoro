@@ -46,7 +46,7 @@ Header
               img(:src="listItem.imgSrc")
               <span>{{listItem.name}}</span>
       .footer-menu-container
-        div.menu-section(v-for="(listItem,litIndex) in footerMenu" :key="'menu-section'+listIndex")
+        div.menu-section(v-for="(listItem,listIndex) in footerMenu" :key="'menu-section-'+listIndex")
           h5
             a {{listItem.title}}
           ul
