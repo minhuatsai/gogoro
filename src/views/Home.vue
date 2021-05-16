@@ -1,7 +1,7 @@
 <template lang="pug">
 Header
 .home-container
-  Carousel(v-bind:carouselList='carouselList')
+  Carousel(v-bind:carouselData='carouselData')
   .home-container-body
     .campaign-list
       VerticalCard(v-for="(listItem,listIndex) in campaignList" :key="'carousel-'+listIndex" :verticalCardList="listItem")
@@ -29,9 +29,12 @@ Header
             q {{quotesData.list[quotesData.activeIndex].quote}}
             p - {{quotesData.list[quotesData.activeIndex].note}}
       ul.quotes-tabs
-        li(v-for="(listItem,listIndex) in quotesData.list" :key="'quotes-tabs-'+listIndex" :class="{active:(listIndex===quotesData.activeIndex)}" @click="quotesTabsHandle(listIndex)") 
+        li(v-for="(listItem,listIndex) in quotesData.list" :key="'quotes-tabs-'+listIndex" :class="{active:(listIndex===quotesData.activeIndex)}" @click="quotesTabsChange(listIndex)") 
           span(v-if="listItem.tabText") {{listItem.tabText}}
           img(v-else-if="listItem.tabImgSrc" :src="listItem.tabImgSrc")
+    .impact-section
+      <h1>Our community’s impact</h1>
+      Carousel(v-bind:carouselData='impactData' v-on:carousel-change="impactCarouselChange")
 </template>
 
 <script>
@@ -45,22 +48,24 @@ export default {
   components: { Header, Carousel, VerticalCard, SimpleIntroduction },
   data() {
     return {
-      carouselList: [
-        {
-          active: true,
-          html: `
-            <div
-              class="carousel-list carousel-list-first"
-            >
-              <div class="advertisement-container">
-                <h2 class="banner-slogan"></h2>
-                <a href="https://www.gogoro.com/smartscooter/viva/mix/">LEARN MORE</a>
+      carouselData: {
+        className: "main-carousel",
+        list: [
+          {
+            active: true,
+            html: `
+              <div
+                class="carousel-list carousel-list-first"
+              >
+                <div class="advertisement-container">
+                  <h2 class="banner-slogan"></h2>
+                  <a href="https://www.gogoro.com/smartscooter/viva/mix/">LEARN MORE</a>
+                </div>
               </div>
-            </div>
-          `,
-        },
-        {
-          html: `
+            `,
+          },
+          {
+            html: `
             <div
               class="carousel-list carousel-list-second"
             >
@@ -77,8 +82,9 @@ export default {
               </a>
             </div>
           `,
-        },
-      ],
+          },
+        ],
+      },
       campaignList: [
         {
           target: "_self",
@@ -193,20 +199,100 @@ export default {
           },
         ],
       },
+      impactData: {
+        animation: "animation-slidein",
+        list: [
+          {
+            active: true,
+            html: `
+            <div
+              class="carousel-list-impact"
+            >
+              <div 
+                class="carousel-list-impact-img-container" 
+                style="background-image:url('https://www.gogoro.com/assets/frontend/landing/impact-co2-cloud-fad788e12ddf2d3d9c00ffd0998748d275a6c8062aac8adbde4954402c94bc50.svg')"
+              ></div>
+              <div class="carousel-list-impact-article" ref="aaa">
+                <h2>279,573,773</h2>
+                <span class="font-weight-bold">CO2 saved</span>
+                <p>
+                  As many as the amount of CO2 that <span class="dynamic-impact-number">27,957,337</span> trees consume every year.
+                </p>
+              </div>
+            </div>
+          `,
+          },
+          {
+            html: `
+            <div
+              class="carousel-list-impact"
+            >
+              <div 
+                class="carousel-list-impact-img-container" 
+                style="background-image:url('https://www.gogoro.com/assets/frontend/landing/impact-battery-658f1b7fd6188c5960f91275460cd3432c395b708558bd16b126f43f68fee24a.svg')"
+              ></div>
+              <div class="carousel-list-impact-article">
+                <h2>184,783,284</h2>
+                <span class="font-weight-bold">CO2 saved</span>
+                <p>
+                  There are more than  <span class="dynamic-impact-number">279,918</span>batteries swapped per day in the last 30 days.
+                </p>
+              </div>
+            </div>
+          `,
+          },
+          {
+            html: `
+            <div
+              class="carousel-list-impact"
+            >
+              <div 
+                class="carousel-list-impact-img-container" 
+                style="background-image:url('https://www.gogoro.com/assets/frontend/landing/impact-earth-8faf0186dfd615264e0005aba27d39141359181c3e3667623612ae5d9ddb3087.svg')"
+              ></div>
+              <div class="carousel-list-impact-article">
+                <h2>279,535,819<span>KG</span></h2>
+                <span class="font-weight-bold">CO2 saved</span>
+                <p>
+                  As many as the amount of CO2 that <span class="dynamic-impact-number">27,953,707</span> trees consume every year.
+                </p>
+              </div>
+            </div>
+          `,
+          },
+        ],
+      },
     };
   },
   methods: {
-    quotesTabsHandle(activeIndex) {
+    quotesTabsChange(activeIndex) {
       this.quotesData.animation = "animation-fadeout";
       setTimeout(() => {
         this.quotesData.activeIndex = activeIndex;
         this.quotesData.animation = "animation-fadein";
-      }, 700);
+      }, 500);
+    },
+    impactCarouselChange(activeIndex) {
+      this.impactData.animation = "animation-slideout";
+      setTimeout(() => {
+        this.impactData.activeIndex = activeIndex;
+        this.impactData.animation = "animation-slidein";
+      }, 500);
     },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+h1 {
+  font-size: 42px;
+}
+</style>
+
 <style lang="scss">
+.main-carousel {
+  height: 85vh;
+}
 .carousel-list {
   height: 100%;
   position: relative;
@@ -285,6 +371,7 @@ export default {
     }
   }
 }
+
 .home-container-body {
   width: 100%;
   margin: 10px auto;
@@ -431,6 +518,64 @@ export default {
         }
         > span {
           padding: 25px 0 15px;
+        }
+      }
+    }
+  }
+  .impact-section {
+    background-color: #fff;
+    padding: var(--spacing-xxl-6) 0 var(--spacing-xxl-2);
+
+    .carousel-list-container {
+      &.active {
+        .carousel-list-impact-img-container {
+          animation: fadeIn 2s forwards;
+        }
+        .carousel-list-impact-article {
+          animation: slideIn 1s forwards;
+        }
+      }
+      .carousel-list-impact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: left;
+
+        .carousel-list-impact-img-container {
+          margin: 0 36px;
+          width: 200px;
+          height: 278px;
+          display: flex;
+          justify-content: center;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        .carousel-list-impact-article {
+          > h2 {
+            font-weight: normal;
+            font-size: 42px;
+
+            + span {
+              margin: var(--spacing-s) 0;
+              display: inline-block;
+            }
+          }
+          > p {
+            font-size: 20px;
+            margin: 0;
+            max-width: 450px;
+          }
+        }
+      }
+    }
+    .slick-dot {
+      > span {
+        border: 2px solid #f1f3f3;
+        background-color: #f1f3f3;
+
+        &.active {
+          border: 2px solid #00d7ff;
+          background-color: fff;
         }
       }
     }

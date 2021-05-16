@@ -40,10 +40,16 @@ h6 {
 }
 
 .animation-fadein {
-  animation: fadeIn 0.7s forwards;
+  animation: fadeIn 0.5s forwards;
 }
 .animation-fadeout {
-  animation: fadeOut 0.7s forwards;
+  animation: fadeOut 0.5s forwards;
+}
+.animation-slidein {
+  animation: slideIn 0.5s forwards;
+}
+.animation-slideout {
+  animation: slideOut 0.5s forwards;
 }
 @keyframes fadeIn {
   from {
@@ -59,5 +65,25 @@ h6 {
   }
   to {
     opacity: 0;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20);
   }
 }
