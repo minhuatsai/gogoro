@@ -1,5 +1,5 @@
 <template lang="pug">
-.header-container 
+.header-container(:style="{backgroundColor:`rgba(0, 0, 0,${headerBackgroundOpacity})`}") 
     .header-container-inner
         router-link(to="/")
             img.img-logo(:src='logoImgSrc') 
@@ -13,9 +13,13 @@ import imgLogo from "../assets/img/logo.svg";
 export default {
   name: "Header",
   components: {},
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
   data() {
     return {
       logoImgSrc: imgLogo,
+      headerBackgroundOpacity: 0,
       headerList: [
         {
           text: "Smartscooter®",
@@ -41,6 +45,15 @@ export default {
       ],
     };
   },
+  methods: {
+    handleScroll() {
+      if (window.scrollY >= 300) {
+        this.headerBackgroundOpacity = 1;
+      } else {
+        this.headerBackgroundOpacity = window.scrollY / 300;
+      }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -55,7 +68,7 @@ export default {
   z-index: 444444;
 
   &:hover {
-    background-color: #323237;
+    background-color: rgba(0, 0, 0, 1) !important;
   }
   .header-container-inner {
     display: flex;
