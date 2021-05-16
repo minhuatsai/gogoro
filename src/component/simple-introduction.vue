@@ -12,7 +12,6 @@ export default {
   name: "simple-introduction",
   props: ["introductionData"],
   data() {
-    console.log(this.$props.introductionData.style);
     return {
       style: this.$props.introductionData.style,
     };

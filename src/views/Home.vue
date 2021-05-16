@@ -12,11 +12,26 @@ Header
         .landing-page-article-header
           h1 The largest battery swapping network in the world
         .landing-page-article-body
-          p Gogoro Network® manages over <string><b>200,000 battery swaps a day</b></string> at 2,100 GoStation® across Taiwan, that's enough power to ride 15,000,000 km.
+          p Gogoro Network® manages over <b>200,000 battery swaps a day</b> at 2,100 GoStation® across Taiwan, that's enough power to ride 15,000,000 km.
         .landing-page-article-footer
           a(class="font-weight-bold" href="https://network.gogoro.com/tw/en/coverage/") SEE OUR NETWORK <img src="https://cdn.gogoro.com/resources/pages/landing-page/gs0528/icon-aarow.svg?v=2" />
     .media-section
       SimpleIntroduction(v-for="(listItem,listIndex) in introductionList" :key="'simple-introduction-'+listIndex" :introductionData="listItem")
+    .eeyo-section
+      h1 Introducing Gogoro Eeyo
+      p From the cloud to the road, this is eBike reimagined. <br />Ultralight, totally digital, and an absolute blast to ride.
+      a(class="font-weight-bold" href="https://eeyo.bike/tw/") LEARN MORE <img src="https://cdn.gogoro.com/resources/pages/landing-page/gs0528/icon-aarow.svg?v=2" />
+      img(src="https://cdn.gogoro.com/resources/pages/landing-page/gs0528/05_Profileshot_Right_Side.png")
+    .quotes-section
+      .quotes-section-article(:class="quotesData.animation")
+        a(href="quotesData.list[quotesData.activeIndex].href") 
+          blockquote
+            q {{quotesData.list[quotesData.activeIndex].quote}}
+            p - {{quotesData.list[quotesData.activeIndex].note}}
+      ul.quotes-tabs
+        li(v-for="(listItem,listIndex) in quotesData.list" :key="'quotes-tabs-'+listIndex" :class="{active:(listIndex===quotesData.activeIndex)}" @click="quotesTabsHandle(listIndex)") 
+          span(v-if="listItem.tabText") {{listItem.tabText}}
+          img(v-else-if="listItem.tabImgSrc" :src="listItem.tabImgSrc")
 </template>
 
 <script>
@@ -119,7 +134,75 @@ export default {
           },
         },
       ],
+      quotesData: {
+        animation: "animation-fadein",
+        activeIndex: 0,
+        list: [
+          {
+            quote: "You have to see it to really appreciate how cool it is,",
+            note: "Al Gore, Wired, December 2017",
+            href:
+              "https://www.wired.co.uk/article/al-gore-generation-sustainable-capitalism",
+            tabText: "",
+            tabImgSrc:
+              "https://cdn.gogoro.com/resources/images/landing-page/quotes_logo_wired_on.jpg",
+          },
+          {
+            quote: "The 9 Coolest Gadgets from CES 2016",
+            note: "Time",
+            href: "https://time.com/4169302/ces-2016-coolest/",
+            tabText: "",
+            tabImgSrc:
+              "https://cdn.gogoro.com/resources/images/landing-page/quotes_logo_time_on.jpg",
+          },
+          {
+            quote: "2018 Asian Company of the Year",
+            note: "Cleantech 100",
+            href:
+              "https://www.cleantech.com/release/cleantech-group-unveils-the-2018-global-cleantech-100-list/",
+            tabText: "",
+            tabImgSrc:
+              "https://cdn.gogoro.com/resources/images/landing-page/quotes_logo_cleantech_on.jpg",
+          },
+          {
+            quote: "2015 CES Best In Show Award",
+            note: "The Verge",
+            href:
+              "https://www.theverge.com/2015/1/9/7509787/verge-awards-best-of-ces-2015",
+            tabText: "",
+            tabImgSrc:
+              "https://cdn.gogoro.com/resources/images/landing-page/quotes_logo_verge_on.jpg",
+          },
+          {
+            quote: "2017 Nikkei Asian Review Award for Excellence",
+            note: "Nikkei Asian Review",
+            href:
+              "https://asia.nikkei.com/magazine/20180111/Business/Gogoro-wins-the-Nikkei-Asian-Review-Award-for-Excellence",
+            tabText: "",
+            tabImgSrc:
+              "https://cdn.gogoro.com/resources/images/landing-page/quotes_logo_nikkei_on.jpg",
+          },
+          {
+            quote: "Selected for the 2016 Sustainia 1000",
+            note: "Sustainia",
+            href:
+              "https://blog.gogoro.com/en/gogoro-selected-for-the-2016-sustainia100e",
+            tabText: "",
+            tabImgSrc:
+              "https://cdn.gogoro.com/resources/images/landing-page/quotes_logo_sustania_on.jpg",
+          },
+        ],
+      },
     };
+  },
+  methods: {
+    quotesTabsHandle(activeIndex) {
+      this.quotesData.animation = "animation-fadeout";
+      setTimeout(() => {
+        this.quotesData.activeIndex = activeIndex;
+        this.quotesData.animation = "animation-fadein";
+      }, 700);
+    },
   },
 };
 </script>
@@ -273,6 +356,83 @@ export default {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+    }
+  }
+  .eeyo-section {
+    padding: 60px 0 0 0;
+    height: 620px;
+    overflow: hidden;
+    position: relative;
+    background-color: #f2f2f2;
+    margin-top: 10px;
+
+    > h1 {
+      font-size: 42px;
+      margin: 0 0 20px 0;
+    }
+    > p {
+      max-width: 464px;
+      margin: 0 auto;
+    }
+    > a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 36px 0 40px 0;
+    }
+    > img {
+      width: 100%;
+      max-width: 900px;
+      position: absolute;
+      bottom: -130px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+  .quotes-section {
+    .quotes-section-article {
+      background-color: #fff;
+      margin-top: 10px;
+      padding: var(--spacing-xxl-6) 0 var(--spacing-xxl-2);
+
+      q {
+        font-size: 36px;
+        color: #323237;
+      }
+      p {
+        color: #b9bcbf;
+      }
+    }
+    .quotes-tabs {
+      background-color: #e6e6e6;
+      display: flex;
+      justify-content: center;
+
+      > li {
+        position: relative;
+        cursor: pointer;
+        padding: 0 var(--spacing-m);
+        opacity: 0.3;
+
+        &.active {
+          opacity: 1;
+
+          &::before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 50%;
+            top: 0;
+            margin-left: -10px;
+            border-width: 15px 10px;
+            border-color: #fff transparent transparent transparent;
+            border-style: solid;
+          }
+        }
+        > span {
+          padding: 25px 0 15px;
+        }
+      }
     }
   }
 }
