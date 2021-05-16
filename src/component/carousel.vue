@@ -3,17 +3,37 @@
   ul
     li(v-for="(listItem,listIndex) in carouselList" :key="'carousel-'+listIndex" v-html="listItem.html" class="carousel-list-container" :class="{active:listItem.active}")
   .slick-dot
-    span(v-for="(listItem,listIndex) in carouselList" :key="'slick-dot-'+listIndex" :class="{active:listItem.active}" @click="listActiveHandle(listIndex)")
+    span(v-for="(listItem,listIndex) in carouselList" :key="'slick-dot-'+listIndex" :class="{active:listItem.active}" @click="listActiveHandle(listIndex)" ref="slickActiveItem")
 </template>
 <script>
 export default {
   name: "carousel",
   props: ["carouselList"],
+  mounted() {
+    this.stopCarousel = setInterval(() => {
+      this.activeIndex++;
+      if (this.activeIndex === this.$props.carouselList.length) {
+        this.activeIndex = 0;
+      }
+      this.$props.carouselList.forEach((listItem, listIndex) => {
+        listItem.active = this.activeIndex === listIndex ? true : false;
+      });
+    }, this.duration);
+  },
+  data() {
+    return {
+      activeIndex: 0,
+      duration: 3000,
+      stopCarousel: null,
+    };
+  },
   methods: {
     listActiveHandle(activeIndex) {
+      this.activeIndex = activeIndex;
       this.$props.carouselList.forEach((listItem, listIndex) => {
         listItem.active = activeIndex === listIndex ? true : false;
       });
+      clearInterval(this.stopCarousel);
     },
   },
 };
